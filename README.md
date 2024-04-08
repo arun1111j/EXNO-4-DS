@@ -179,6 +179,45 @@ print('Misclassified samples: %d'% (test_y != prediction).sum())
 data.shape
 ```
 ![Screenshot 2024-04-08 133707](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/7f96213c-becc-455b-9be3-db54bed1b22d)
+```
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_classif
+data={
+    'Feature1': [1,2,3,4,5],
+    'Feature2': ['A','B','C','A','B'],
+    'Feature3': [0,1,1,0,1],
+    'Target'  : [0,1,1,0,1]
+}
+
+df=pd.DataFrame(data)
+x=df[['Feature1','Feature3']]
+y=df[['Target']]
+
+selector=SelectKBest(score_func=mutual_info_classif,k=1)
+x_new=selector.fit_transform(x,y)
+
+selected_feature_indices=selector.get_support(indices=True)
+
+selected_features=x.columns[selected_feature_indices]
+print("Selected Features:")
+print(selected_features)
+```
+![Screenshot 2024-04-08 135252](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/0d2359e5-5b37-4091-9203-6e65df36d92f)
+```
+tips.time.unique()
+```
+![Screenshot 2024-04-08 135612](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/9836a9f3-fe9e-4ec3-920d-2a3530762734)
+```
+contingency_table=pd.crosstab(tips['sex'],tips['time'])
+print(contingency_table)
+```
+![Screenshot 2024-04-08 135823](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/10c74211-c4bb-4a26-b5cf-784f7204cc59)
+```
+chi2,p,,=chi2_contingency(contingency_table)
+print(f"Chi-Square Statistics: {chi2}")
+print(f"P-Value: {p}")
+```
+
 
 
 
@@ -186,4 +225,4 @@ data.shape
 
 
 # RESULT:
-The given data performed feature scaling and feature selecting and implemented
+Thus, Feature selection and Feature scaling has been used on thegiven dataset.
