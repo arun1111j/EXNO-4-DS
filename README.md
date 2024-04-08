@@ -213,10 +213,11 @@ print(contingency_table)
 ```
 ![Screenshot 2024-04-08 135823](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/10c74211-c4bb-4a26-b5cf-784f7204cc59)
 ```
-chi2,p,,=chi2_contingency(contingency_table)
+chi2,p,_,_=chi2_contingency(contingency_table)
 print(f"Chi-Square Statistics: {chi2}")
 print(f"P-Value: {p}")
 ```
+![Screenshot 2024-04-08 140616](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/469760f6-4232-4c33-af9d-b8a8dcfd7d17)
 
 
 
