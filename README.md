@@ -75,6 +75,15 @@ df[['Height','Weight']]=sc.fit_transform(df[['Height','Weight']])
 df
 ```
 ![image](https://github.com/SJananisenthilkumar/EXNO-4-DS/assets/144871139/1aedf04d-036c-4544-a2d5-bb05ed2663cd)
+```
+from sklearn.preprocessing import RobustScaler
+scaler=RobustScaler()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df.head()
+```
+![Screenshot 2024-04-08 131902](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/f6d88d95-f69b-4f18-b82a-f9ba84200203)
+
+
 **Feature Selection**
 ```
 import pandas as pd
@@ -86,4 +95,95 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score,confusion_matrix
 ```
+```
+data=pd.read_csv("/content/income(1) (1).csv",na_values=[" ?"])
+data
+```
+![Screenshot 2024-04-08 132056](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/76a6f995-f13b-4c95-ae8c-528e72850c3b)
+```
+data.isnull().sum()
+```
+![Screenshot 2024-04-08 132139](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/9f1b357d-a955-4d6b-8f37-d9c2900fdf03)
+```
+missing=data[data.isnull().any(axis=1)]
+missing
+```
+![Screenshot 2024-04-08 132213](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/588e9033-2d09-4caf-a854-8cd0c5620418)
+```
+data2=data.dropna(axis=0)
+data2
+```
+![Screenshot 2024-04-08 132301](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/f904cb0a-179c-4b18-9758-e4871b88ff35)
+```
+sal=data['SalStat']
+data2['SalStat']=data2['SalStat'].map({' less than  or equal to 50,000':0,' greater than 50,000':1})
+print(data2['SalStat'])
+```
+![Screenshot 2024-04-08 132337](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/5697629f-598e-49da-98f5-f6f9736d4ef3)
+```
+sal2=data2['SalStat']
+dfs=pd.concat([sal,sal2],axis=1)
+dfs
+```
+![Screenshot 2024-04-08 132411](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/9ace2ee3-17e9-4591-b86d-d995ac6b7ff5)
+```
+data2
+```
+![Screenshot 2024-04-08 132437](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/954ae119-4c01-4e3d-9430-f8be6cede5eb)
+```
+new_data=pd.get_dummies(data2,drop_first=True)
+new_data
+```
+![Screenshot 2024-04-08 132540](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/fb035e04-7b58-4fa2-a856-5f1258d98d70)
+```
+columns_list=list(new_data.columns)
+print(columns_list)
+```
+![Screenshot 2024-04-08 132627](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/f670491b-3a15-4940-9442-af6132c37327)
+```
+features=list(set(columns_list)-set(['SalStat']))
+print(features)
+```
+![Screenshot 2024-04-08 132703](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/8861beaf-4ff8-46d5-8f32-f219cb7c0729)
+```
+y=new_data['SalStat'].values
+print(y)
+```
+![Screenshot 2024-04-08 132737](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/e4ee6b46-e4d5-41a3-a961-5e3988f5ee98)
+```
+x=new_data[features].values
+print(x)
+```
+![Screenshot 2024-04-08 132839](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/b794a8cb-8325-45bf-958d-1c2305f5e20a)
+```
+train_x,test_x,train_y,test_y=train_test_split(x,y,test_size=0.3,random_state=0)
+KNN_classifier=KNeighborsClassifier(n_neighbors=5)
+KNN_classifier.fit(train_x,train_y)
+prediction=KNN_Classifier.predict(test_x)
+```
+```
+confusionMmatrix=confusion_matrix(test_y,prediction)
+print(confusionMmatrix)
+```
+![Screenshot 2024-04-08 133507](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/3906c6b9-5480-498d-b139-e7db823e3b05)
+```
+accuracy_score=accuracy_score(test_y,prediction)
+print(accuracy_score)
+```
+![Screenshot 2024-04-08 133558](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/fbb86aca-9120-40ee-b59e-3f600de10e3b)
+```
+print('Misclassified samples: %d'% (test_y != prediction).sum())
+```
+![Screenshot 2024-04-08 133630](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/7f519b52-847b-4b3c-bd14-783788d19900)
+```
+data.shape
+```
+![Screenshot 2024-04-08 133707](https://github.com/arun1111j/EXNO-4-DS/assets/128461833/7f96213c-becc-455b-9be3-db54bed1b22d)
+
+
+
+
+
+
 # RESULT:
+The given data performed feature scaling and feature selecting and implemented
